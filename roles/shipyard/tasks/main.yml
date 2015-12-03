@@ -1,0 +1,89 @@
+---
+- name: Datastore
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: "{{ docker_net }}"
+    name: "{{ prefix }}-rethinkdb"
+    tty: yes
+    detach: yes
+    restart_policy: always
+    image: rethinkdb
+    state: started
+
+- name: Discovery
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: "{{ docker_net }}"
+    name: "{{ prefix }}-discovery"
+    tty: yes
+    detach: yes
+    restart_policy: always
+    ports:
+      - "{{ discovery_port }}:{{ discovery_port }}"
+      - "{{ discovery_peer_port }}:{{ discovery_peer_port }}"
+    image: microbox/etcd:latest
+    command: "-addr {{ ansible_default_ipv4.address }}:{{ discovery_port }} -peer-addr {{ ansible_default_ipv4.address }}:{{ discovery_peer_port }}"
+    state: started
+
+- name: Proxy
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: "{{ docker_net }}"
+    name: "{{ prefix }}-proxy"
+    tty: yes
+    detach: yes
+    restart_policy: always
+    hostname: "{{ ansible_hostname }}"
+    ports:
+      - "{{ proxy_port }}:{{ proxy_port }}"
+    env:
+      PORT: "{{ proxy_port }}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    image: ehazlett/docker-proxy:latest
+    state: started
+
+- name: Swarm Manager
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: "{{ docker_net }}"
+    name: "{{ prefix }}-swarm-manager"
+    tty: yes
+    detach: yes
+    restart_policy: always
+    links:
+      - "{{ prefix }}-discovery:discovery"
+    image: swarm:latest
+    command: "m --replication --addr {{ ansible_default_ipv4.address }}:{{ swarm_port }} --host tcp://0.0.0.0:{{ swarm_port }} {{ discovery_backend }}://discovery:{{ discovery_port }}"
+    state: started
+
+- name: Swarm Agent
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: "{{ docker_net }}"
+    name: "{{ prefix }}-swarm-agent"
+    tty: yes
+    detach: yes
+    restart_policy: always
+    links:
+      - "{{ prefix }}-discovery:discovery"
+    image: swarm:latest
+    command: "j --addr {{ ansible_default_ipv4.address }}:{{ proxy_port }} {{ discovery_backend }}://discovery:{{ discovery_port }}"
+    state: started
+
+- name: Controller
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: "{{ docker_net }}"
+    name: "{{ prefix }}-controller"
+    tty: yes
+    detach: yes
+    restart_policy: always
+    links:
+      - "{{ prefix }}-rethinkdb:rethinkdb"
+      - "{{ prefix }}-swarm-manager:swarm"
+    ports:
+      - "{{ shipyard_port }}:{{ shipyard_port }}"
+    image: shipyard/shipyard:latest
+    command: "--debug server --listen :{{ shipyard_port }} -d tcp://swarm:{{ swarm_port }}"
+    state: started

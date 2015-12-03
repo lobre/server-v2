@@ -1,0 +1,8 @@
+---
+
+- hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+    - name: Delete all docker containers
+      shell: "docker rm -f $(docker ps -a -q)"

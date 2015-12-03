@@ -1,0 +1,11 @@
+---
+prefix: shipyard
+discovery_backend: etcd
+discovery_port: 4001
+discovery_peer_port: 7001
+proxy_port: 2375
+swarm_port: 3375
+shipyard_port: 8080
+
+docker_version: 1.18
+docker_net: bridge
