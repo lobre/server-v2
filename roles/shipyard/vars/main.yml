@@ -1,4 +1,5 @@
 ---
+
 prefix: shipyard
 discovery_backend: etcd
 discovery_port: 4001
