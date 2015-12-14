@@ -1,0 +1,20 @@
+---
+
+- name: Make sure folder library exists
+  file: >
+    state=directory
+    path="{{ lookup('env','HOME') }}/{{ library_name }}"
+
+- name: Install Owncloud
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: "{{ docker_net }}"
+    name: owncloud
+    detach: yes
+    restart_policy: always
+    ports:
+      - "{{ owncloud_port }}:80"
+    volumes:
+      - "{{ lookup('env','HOME') }}/{{ library_name }}:/var/www/html/data/admin/files"
+    image: owncloud:latest
+    state: started

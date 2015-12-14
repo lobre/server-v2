@@ -1,9 +1,16 @@
 ---
 
+# - name: Prepare docker server
+#   hosts: host
+#   remote_user: root
+
+#   roles:
+#     - role: prepare
+
 - name: Docker server setup
-  hosts: host
-  remote_user: root
+  hosts: 127.0.0.1
+  connection: local
 
   roles:
-    - role: prepare
-    - role: shipyard
+    # - role: shipyard
+    - role: media
