@@ -8,3 +8,5 @@ puid: 33
 pgid: 33
 
 owncloud_port: 8085
+deluge_port: 8112
+plex_port: 32400

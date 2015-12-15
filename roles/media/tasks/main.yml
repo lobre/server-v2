@@ -33,25 +33,25 @@
     name: deluge
     restart_policy: always
     ports:
-      - 8112:8112
+      - "{{ deluge_port }}:8112"
     volumes:
       - "{{ library_path }}/Downloads:/downloads"
     env:
       PUID: "{{ puid }}"
       PGID: "{{ pgid }}"
       VIRTUAL_HOST: torrent.lobr.fr
-      VIRTUAL_PORT: 8112
+      VIRTUAL_PORT: "{{ deluge_port }}"
     image: linuxserver/deluge
     state: started
 
 - name: Install Plex
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: host
+    net: bridge
     name: plex
     restart_policy: always
-    expose:
-      - 32400
+    ports:
+      - "{{ plex_port }}:32400"
     volumes:
       - "{{ library_path }}/Series:/data/tvshows"
       - "{{ library_path }}/Movies:/data/movies"
@@ -60,6 +60,7 @@
       PGID: "{{ pgid }}"
       VERSION: plexpass
       VIRTUAL_HOST: plex.lobr.fr
+      VIRTUAL_PORT: "{{ plex_port }}"
     image: linuxserver/plex
     state: started
 
