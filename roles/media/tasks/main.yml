@@ -34,6 +34,8 @@
     net: host
     name: deluge
     restart_policy: always
+    expose:
+      - 32400
     ports:
       - "8112:8112"
     volumes:
@@ -50,6 +52,8 @@
     net: host
     name: plex
     restart_policy: always
+    expose:
+      - 32400
     ports:
       - "32400:32400"
     volumes:
