@@ -1,18 +1,14 @@
 ---
 
-- name: Register library path
-  command: echo "{{ lookup('env','HOME') }}/{{ library_name }}"
-  register: library_path
-
 - name: Make sure folder library exists with subfolders
   file: >
     state=directory
     recurse=yes
     path="{{ item }}"
   with_items:
-    - "{{ library_path.stdout }}/Downloads"
-    - "{{ library_path.stdout }}/Series"
-    - "{{ library_path.stdout }}/Movies"
+    - "{{ library_path }}/Downloads"
+    - "{{ library_path }}/Series"
+    - "{{ library_path }}/Movies"
 
 - name: Install Owncloud
   docker:
@@ -24,25 +20,27 @@
     ports:
       - "{{ owncloud_port }}:80"
     volumes:
-      - "{{ library_path.stdout }}:/var/www/html/data/admin/files"
+      - "{{ library_path }}:/var/www/html/data/admin/files"
+    env:
+      VIRTUAL_HOST: cloud.lobr.fr
     image: owncloud:latest
     state: started
 
 - name: Install Deluge
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: host
+    net: bridge
     name: deluge
     restart_policy: always
-    expose:
-      - 32400
     ports:
-      - "8112:8112"
+      - 8112:8112
     volumes:
-      - "{{ library_path.stdout }}/Downloads:/downloads"
+      - "{{ library_path }}/Downloads:/downloads"
     env:
       PUID: "{{ puid }}"
       PGID: "{{ pgid }}"
+      VIRTUAL_HOST: torrent.lobr.fr
+      VIRTUAL_PORT: 8112
     image: linuxserver/deluge
     state: started
 
@@ -54,15 +52,14 @@
     restart_policy: always
     expose:
       - 32400
-    ports:
-      - "32400:32400"
     volumes:
-      - "{{ library_path.stdout }}/Series:/data/tvshows"
-      - "{{ library_path.stdout }}/Movies:/data/movies"
+      - "{{ library_path }}/Series:/data/tvshows"
+      - "{{ library_path }}/Movies:/data/movies"
     env:
       PUID: "{{ puid }}"
       PGID: "{{ pgid }}"
       VERSION: plexpass
+      VIRTUAL_HOST: plex.lobr.fr
     image: linuxserver/plex
     state: started
 

@@ -1,0 +1,15 @@
+---
+
+- name: Install Nginx proxy
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: bridge
+    name: proxy
+    detach: yes
+    restart_policy: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    image: jwilder/nginx-proxy
+    state: started
