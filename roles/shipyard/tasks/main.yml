@@ -3,7 +3,7 @@
 - name: Datastore
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: "{{ docker_net }}"
+    net: bridge
     name: "{{ prefix }}-rethinkdb"
     tty: yes
     detach: yes
@@ -14,7 +14,7 @@
 - name: Discovery
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: "{{ docker_net }}"
+    net: bridge
     name: "{{ prefix }}-discovery"
     tty: yes
     detach: yes
@@ -29,7 +29,7 @@
 - name: Proxy
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: "{{ docker_net }}"
+    net: bridge
     name: "{{ prefix }}-proxy"
     tty: yes
     detach: yes
@@ -47,7 +47,7 @@
 - name: Swarm Manager
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: "{{ docker_net }}"
+    net: bridge
     name: "{{ prefix }}-swarm-manager"
     tty: yes
     detach: yes
@@ -61,7 +61,7 @@
 - name: Swarm Agent
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: "{{ docker_net }}"
+    net: bridge
     name: "{{ prefix }}-swarm-agent"
     tty: yes
     detach: yes
@@ -75,7 +75,7 @@
 - name: Controller
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: "{{ docker_net }}"
+    net: bridge
     name: "{{ prefix }}-controller"
     tty: yes
     detach: yes

@@ -1,8 +1,10 @@
 ---
 
 docker_version: 1.18
-docker_net: bridge
 
-library_name: library
+library_name: Library
+
+puid: 33
+pgid: 33
 
 owncloud_port: 8080

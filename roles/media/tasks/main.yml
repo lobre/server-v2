@@ -1,20 +1,66 @@
 ---
 
-- name: Make sure folder library exists
+- name: Register library path
+  command: echo "{{ lookup('env','HOME') }}/{{ library_name }}"
+  register: library_path
+
+- name: Make sure folder library exists with subfolders
   file: >
     state=directory
-    path="{{ lookup('env','HOME') }}/{{ library_name }}"
+    recurse=yes
+    path="{{ item }}"
+  with_items:
+    - "{{ library_path.stdout }}/Downloads"
+    - "{{ library_path.stdout }}/Series"
+    - "{{ library_path.stdout }}/Movies"
 
 - name: Install Owncloud
   docker:
     docker_api_version: "{{ docker_version }}"
-    net: "{{ docker_net }}"
+    net: bridge
     name: owncloud
     detach: yes
     restart_policy: always
     ports:
       - "{{ owncloud_port }}:80"
     volumes:
-      - "{{ lookup('env','HOME') }}/{{ library_name }}:/var/www/html/data/admin/files"
+      - "{{ library_path.stdout }}:/var/www/html/data/admin/files"
     image: owncloud:latest
     state: started
+
+- name: Install Deluge
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: host
+    name: deluge
+    restart_policy: always
+    ports:
+      - "8112:8112"
+    volumes:
+      - "{{ library_path.stdout }}/Downloads:/downloads"
+    env:
+      PUID: "{{ puid }}"
+      PGID: "{{ pgid }}"
+    image: linuxserver/deluge
+    state: started
+
+- name: Install Plex
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: host
+    name: plex
+    restart_policy: always
+    ports:
+      - "32400:32400"
+    volumes:
+      - "{{ library_path.stdout }}/Series:/data/tvshows"
+      - "{{ library_path.stdout }}/Movies:/data/movies"
+    env:
+      PUID: "{{ puid }}"
+      PGID: "{{ pgid }}"
+      VERSION: plexpass
+    image: linuxserver/plex
+    state: started
+
+- debug: msg="Owncloud -> you need to set the following parameter in Owncloud's config 'filesystem_check_changes' => 1."
+- debug: msg="Deluge -> credentials are admin/deluge. You need to set up download folder to /downloads."

@@ -18,7 +18,11 @@
 - name: Create docker user
   user: name="{{ user_name }}" group="{{ user_group }}"
 
+- name: Register local SSH public key
+  local_action: command echo "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+  register: ssh_path
+
 - name: Upload SSH key for docker user
   authorized_key: >
     user="{{ user_name }}"
-    key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    key="{{ lookup('file', ssh_path.stdout) }}"

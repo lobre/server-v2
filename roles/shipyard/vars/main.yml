@@ -9,4 +9,3 @@ swarm_port: 3375
 shipyard_port: 8080
 
 docker_version: 1.18
-docker_net: bridge
