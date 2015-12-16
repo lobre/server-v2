@@ -53,8 +53,7 @@
     ports:
       - "{{ plex_port }}:32400"
     volumes:
-      - "{{ library_path }}/Series:/data/tvshows"
-      - "{{ library_path }}/Movies:/data/movies"
+      - "{{ library_path }}:/data"
     env:
       PUID: "{{ puid }}"
       PGID: "{{ pgid }}"
