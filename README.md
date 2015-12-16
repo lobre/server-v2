@@ -48,10 +48,6 @@ URL: couchpotato.lobr.fr
 
 URL: sonarr.lobr.fr
 
-### Headphones
-
-URL: headphones.lobr.fr
-
 ### Minecraft
 
 URL: minecraft.lobr.fr

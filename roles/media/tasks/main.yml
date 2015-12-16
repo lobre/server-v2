@@ -98,20 +98,3 @@
     image: linuxserver/sonarr
     state: started
 
-- name: Install Headphones
-  docker:
-    docker_api_version: "{{ docker_version }}"
-    net: bridge
-    name: headphones
-    restart_policy: always
-    ports:
-      - "{{ headphones_port }}:8181"
-    volumes:
-      - "{{ library_path }}/Downloads:/downloads"
-      - "/etc/localtime:/etc/localtime:ro"
-    env:
-      PUID: "{{ puid }}"
-      PGID: "{{ pgid }}"
-      VIRTUAL_HOST: headphones.lobr.fr
-    image: linuxserver/headphones
-    state: started
