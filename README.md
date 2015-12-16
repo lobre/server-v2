@@ -27,3 +27,7 @@ After run, need to set this variable into Owncloud's config.php.
 Credentials: admin/deluge
 
 Need to change the download destination folder to `/downloads`.
+
+### Plex
+
+When first connected to Plex server, need to set the manual port to `32400` to allow remote connections.
