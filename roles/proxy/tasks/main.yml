@@ -1,5 +1,16 @@
 ---
 
+- name: Make sure certificate folder exists
+  file: >
+    state=directory
+    recurse=yes
+    path="{{ certificate_path }}"
+
+- name: Generate self signed SSL certificate
+  command: "openssl req -new -nodes -x509 -subj '/C={{ certificate_country_code }}/ST={{ certificate_state }}/L={{ certificate_locality }}/O={{ certificate_organization }}/CN=*.{{ certificate_domain }}/emailAddress={{ certificate_email }}/subjectAltName=DNS.1={{ certificate_domain }}' -days 3650 -keyout {{ certificate_path }}/{{ certificate_domain }}.key -out {{ certificate_path }}/{{ certificate_domain }}.crt -extensions v3_ca"
+  args:
+    creates: "{{ certificate_path }}/{{ certificate_domain }}.crt"
+
 - name: Install Nginx proxy
   docker:
     docker_api_version: "{{ docker_version }}"
@@ -9,7 +20,9 @@
     restart_policy: always
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "{{ certificate_path }}:/etc/nginx/certs"
     image: jwilder/nginx-proxy
     state: started

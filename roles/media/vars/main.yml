@@ -2,7 +2,7 @@
 
 docker_version: 1.18
 
-library_path: /home/docker/Library
+library_path: /home/docker/media
 
 puid: 33
 pgid: 33

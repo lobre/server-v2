@@ -1,0 +1,9 @@
+---
+
+certificate_domain: lobr.fr
+certificate_path: /home/docker/certs
+certificate_email: loric.brevet@gmail.com
+certificate_organization: lobr
+certificate_country_code: FR
+certificate_state: France
+certificate_locality: Lyon

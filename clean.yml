@@ -7,3 +7,5 @@
   tasks:
     - name: Delete all docker containers
       shell: "docker rm -f $(docker ps -a -q)"
+      ignore_errors: yes
+      no_log: yes
