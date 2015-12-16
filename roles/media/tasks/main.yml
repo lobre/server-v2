@@ -62,6 +62,3 @@
       VIRTUAL_PORT: "{{ plex_port }}"
     image: linuxserver/plex
     state: started
-
-- debug: msg="Owncloud -> you need to set the following parameter in Owncloud's config 'filesystem_check_changes' => 1."
-- debug: msg="Deluge -> credentials are admin/deluge. You need to set up download folder to /downloads."

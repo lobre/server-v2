@@ -90,5 +90,3 @@
     image: shipyard/shipyard:latest
     command: "--debug server --listen :{{ shipyard_port }} -d tcp://swarm:{{ swarm_port }}"
     state: started
-
-- debug: msg="Shipyard -> credentials are admin/shipyard."
