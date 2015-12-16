@@ -1,0 +1,8 @@
+---
+
+docker_version: 1.18
+
+minecraft_path: /home/docker/minecraft
+
+minecraft_port: 25565
+mcmyadmin_port: 8083

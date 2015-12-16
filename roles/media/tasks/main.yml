@@ -40,7 +40,7 @@
       PUID: "{{ puid }}"
       PGID: "{{ pgid }}"
       VIRTUAL_HOST: torrent.lobr.fr
-      VIRTUAL_PORT: "{{ deluge_port }}"
+      VIRTUAL_PORT: "8112"
     image: linuxserver/deluge
     state: started
 
@@ -59,6 +59,41 @@
       PGID: "{{ pgid }}"
       VERSION: plexpass
       VIRTUAL_HOST: plex.lobr.fr
-      VIRTUAL_PORT: "{{ plex_port }}"
     image: linuxserver/plex
+    state: started
+
+- name: Install Couchpotato
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: bridge
+    name: couchpotato
+    restart_policy: always
+    ports:
+      - "{{ couchpotato_port }}:5050"
+    volumes:
+      - "{{ library_path }}/Downloads:/downloads"
+      - "/etc/localtime:/etc/localtime:ro"
+    env:
+      PUID: "{{ puid }}"
+      PGID: "{{ pgid }}"
+      VIRTUAL_HOST: couchpotato.lobr.fr
+    image: linuxserver/couchpotato
+    state: started
+
+- name: Install Sonarr
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: bridge
+    name: sonarr
+    restart_policy: always
+    ports:
+      - "{{ sonarr_port }}:8989"
+    volumes:
+      - "{{ library_path }}/Downloads:/downloads"
+      - "/dev/rtc:/dev/rtc:ro"
+    env:
+      PUID: "{{ puid }}"
+      PGID: "{{ pgid }}"
+      VIRTUAL_HOST: sonarr.lobr.fr
+    image: linuxserver/sonarr
     state: started

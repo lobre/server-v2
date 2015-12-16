@@ -1,0 +1,24 @@
+---
+
+- name: Make sure Minecraft folder exists
+  file: >
+    state=directory
+    recurse=yes
+    path="{{ minecraft_path }}"
+
+- name: Install Minecraft
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: bridge
+    name: minecraft
+    restart_policy: always
+    ports:
+      - "{{ mcmyadmin_port }}:8080"
+      - "{{ minecraft_port }}:25565"
+    volumes:
+      - "{{ minecraft_path }}:/minecraft"
+    env:
+      VIRTUAL_HOST: minecraft.lobr.fr
+      VIRTUAL_PORT: "8080"
+    image: linuxserver/mcmyadmin2
+    state: started

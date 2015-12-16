@@ -10,3 +10,5 @@ pgid: 33
 owncloud_port: 8085
 deluge_port: 8112
 plex_port: 32400
+couchpotato_port: 5050
+sonarr_port: 8989

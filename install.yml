@@ -8,3 +8,4 @@
     - role: proxy
     - role: shipyard
     - role: media
+    - role: minecraft
