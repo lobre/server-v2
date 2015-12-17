@@ -73,6 +73,7 @@
       - "{{ couchpotato_port }}:5050"
     volumes:
       - "{{ library_path }}/Downloads:/downloads"
+      - "{{ library_path }}/Movies:/movies"
       - "/etc/localtime:/etc/localtime:ro"
     env:
       PUID: "{{ puid }}"
@@ -91,6 +92,7 @@
       - "{{ sonarr_port }}:8989"
     volumes:
       - "{{ library_path }}/Downloads:/downloads"
+      - "{{ library_path }}/Series:/tv"
       - "/dev/rtc:/dev/rtc:ro"
     env:
       PUID: "{{ puid }}"
