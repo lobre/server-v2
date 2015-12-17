@@ -14,21 +14,15 @@ To install all the containers.
 
 ### Shipyard
 
-URL: shipyard.lobr.fr
-
 Default credentials: admin/shipyard
 
 ### Owncloud
-
-URL: cloud.lobr.fr
 
 After run, set this variable into Owncloud's config.php.
 
     'filesystem_check_changes' => 1,
 
 ### Deluge
-
-URL: torrent.lobr.fr
 
 Default credentials: admin/deluge
 
@@ -42,13 +36,9 @@ Add a user in the daemon file (`/config/auth`) and restart the container.
 
 ### Plex
 
-URL: plex.lobr.fr
-
 When first connected to Plex server, set the manual port to `32400` to allow remote connections.
 
 ### Couchpotato
-
-URL: couchpotato.lobr.fr
 
 Add download client.
 
@@ -58,8 +48,6 @@ Add download client.
 
 ### Sonarr
 
-URL: sonarr.lobr.fr
-
 Add download client.
 
     host: lobr.fr
@@ -67,7 +55,5 @@ Add download client.
     password: deluge
 
 ### Minecraft
-
-URL: minecraft.lobr.fr
 
 Default credentials: admin/password
