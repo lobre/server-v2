@@ -1,0 +1,6 @@
+<h1>Home</h1>
+{{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
+    {{ range $index, $value := $containers }}
+        <a href="https://{{ $host }}">{{$value.Name}}</a>
+    {{ end }}
+{{ end }}

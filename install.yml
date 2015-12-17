@@ -6,6 +6,7 @@
 
   roles:
     - role: proxy
+    - role: home
     - role: shipyard
     - role: media
     - role: minecraft
