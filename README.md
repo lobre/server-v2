@@ -10,6 +10,10 @@ To install all the containers.
 
     ansible-playbook install.yml
 
+You can also clean/delete all containers.
+
+    ansible-playbook clean.yml
+
 ## Additional information
 
 ### Shipyard
