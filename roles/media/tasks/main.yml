@@ -33,7 +33,8 @@
     name: deluge
     restart_policy: always
     ports:
-      - "{{ deluge_port }}:8112"
+      - "{{ deluge_client_port }}:8112"
+      - "{{ deluge_host_port }}:58846"
     volumes:
       - "{{ library_path }}/Downloads:/downloads"
     env:

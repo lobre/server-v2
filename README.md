@@ -22,7 +22,7 @@ Default credentials: admin/shipyard
 
 URL: cloud.lobr.fr
 
-After run, need to set this variable into Owncloud's config.php.
+After run, set this variable into Owncloud's config.php.
 
     'filesystem_check_changes' => 1,
 
@@ -32,21 +32,39 @@ URL: torrent.lobr.fr
 
 Default credentials: admin/deluge
 
-Need to change the download destination folder to `/downloads`.
+Change the download destination folder to `/downloads`.
+Allow remote connections under `daemon` tab.
+Enable `Label` plugin.
+
+Add a user in the daemon file (`/config/auth`) and restart the container.
+
+    admin:deluge:10
 
 ### Plex
 
 URL: plex.lobr.fr
 
-When first connected to Plex server, need to set the manual port to `32400` to allow remote connections.
+When first connected to Plex server, set the manual port to `32400` to allow remote connections.
 
 ### Couchpotato
 
 URL: couchpotato.lobr.fr
 
+Add download client.
+
+    username: admin
+    password: deluge
+    host: lobr.fr:58846
+
 ### Sonarr
 
 URL: sonarr.lobr.fr
+
+Add download client.
+
+    host: lobr.fr
+    port: 8112
+    password: deluge
 
 ### Minecraft
 
