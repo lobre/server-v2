@@ -24,5 +24,7 @@
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - "{{ certificate_path }}:/etc/nginx/certs"
+    env:
+      DEFAULT_HOST: "{{ default_host }}"
     image: jwilder/nginx-proxy
     state: started

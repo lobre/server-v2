@@ -7,3 +7,5 @@ certificate_organization: lobr
 certificate_country_code: FR
 certificate_state: France
 certificate_locality: Lyon
+
+default_host: lobr.fr
