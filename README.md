@@ -59,6 +59,8 @@ Add download client.
     password: deluge
     host: lobr.fr:58846
 
+Enable Torrent Provider `ThePirateBay`.
+
 ### Sonarr
 
 Add download client.
@@ -67,7 +69,16 @@ Add download client.
     port: 8112
     password: deluge
 
+Add indexer `KickassTorrents`, `Nyaa`, `Rarbg`.
+
+Add plex as connection.
+
+    host: lobr.fr
+    port: 32400
+
 ### Headphones
+
+Set password, plex connection and torrent with Black Hole.
 
 ### Minecraft
 
