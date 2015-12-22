@@ -20,8 +20,8 @@
     detach: yes
     restart_policy: always
     ports:
-      - "{{ discovery_port }}:{{ discovery_port }}"
-      - "{{ discovery_peer_port }}:{{ discovery_peer_port }}"
+      - "{{ discovery_port }}:4001"
+      - "{{ discovery_peer_port }}:7001"
     image: microbox/etcd:latest
     command: "-addr {{ ansible_default_ipv4.address }}:{{ discovery_port }} -peer-addr {{ ansible_default_ipv4.address }}:{{ discovery_peer_port }}"
     state: started
@@ -36,7 +36,7 @@
     restart_policy: always
     hostname: "{{ ansible_hostname }}"
     ports:
-      - "{{ proxy_port }}:{{ proxy_port }}"
+      - "{{ proxy_port }}:2375"
     env:
       PORT: "{{ proxy_port }}"
     volumes:
@@ -84,7 +84,7 @@
       - "{{ prefix }}-rethinkdb:rethinkdb"
       - "{{ prefix }}-swarm-manager:swarm"
     ports:
-      - "{{ shipyard_port }}:{{ shipyard_port }}"
+      - "{{ shipyard_port }}:8080"
     env:
       VIRTUAL_HOST: shipyard.lobr.fr
     image: shipyard/shipyard:latest

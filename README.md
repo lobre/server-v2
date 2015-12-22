@@ -4,21 +4,30 @@ A few Ansible roles to build a server with cool images.
 
 To install the correct packages and create the docker user.
 
-    ansible-playbook prepare.yml
+    $ ansible-playbook prepare.yml
 
 To install all the containers.
 
-    ansible-playbook install.yml
+    $ ansible-playbook install.yml
 
 You can also clean/delete all containers.
 
-    ansible-playbook clean.yml
+    $ ansible-playbook clean.yml
 
 ## Additional information
 
 ### Shipyard
 
 Default credentials: admin/shipyard
+
+To change credentials.
+
+    $ docker run -ti --rm shipyard/shipyard-cli
+    $ shipyard login
+    URL: http://<domain_name>:8080
+    Username: admin
+    Password: shipyard
+    $ shipyard change-password
 
 ### Owncloud
 
