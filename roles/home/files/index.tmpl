@@ -23,14 +23,14 @@
         a:hover { text-decoration: none; color: white; }
         a.item {
             display: block;
-            height: 130px;
+            height: 90px;
             padding: 4px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 4px;
-            line-height: 110px;
+            line-height: 80px;
             text-align: center;
-            color: white;
+            color: #656565;
             font-size: 20px;
             text-transform: uppercase;
             font-weight: bold;
@@ -72,8 +72,9 @@
 
     <script>
         $( document ).ready(function() {
-            $(".item-wrapper").each(function(){
-                $(this).css('background','#'+Math.floor(Math.random()*16777215).toString(16));
+            $(".item-wrapper").each(function() {
+                var hue = 'rgb(' + (Math.floor((256-199)*Math.random()) + 200) + ',' + (Math.floor((256-199)*Math.random()) + 200) + ',' + (Math.floor((256-199)*Math.random()) + 200) + ')';
+                $(this).css("background-color", hue);
             });
         });
     </script>

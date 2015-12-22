@@ -58,6 +58,8 @@ Add download client.
     port: 8112
     password: deluge
 
+### Headphones
+
 ### Minecraft
 
 Default credentials: admin/password

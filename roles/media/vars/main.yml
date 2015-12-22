@@ -13,3 +13,4 @@ deluge_host_port: 58846
 plex_port: 32400
 couchpotato_port: 5050
 sonarr_port: 8989
+headphones_port: 8181
