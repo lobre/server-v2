@@ -40,6 +40,7 @@ After run, set this variable into Owncloud's config.php.
 Default credentials: admin/deluge
 
 Change the download destination folder to `/downloads`.
+Enable the `Autoadd torrent files from` to `/downloads`.
 Allow remote connections under `daemon` tab.
 Enable `Label` plugin.
 
