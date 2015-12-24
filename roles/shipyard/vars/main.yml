@@ -1,5 +1,7 @@
 ---
 
+domain_name: lobr.fr
+
 prefix: shipyard
 discovery_backend: etcd
 discovery_port: 4001

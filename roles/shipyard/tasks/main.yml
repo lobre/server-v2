@@ -86,7 +86,8 @@
     ports:
       - "{{ shipyard_port }}:8080"
     env:
-      VIRTUAL_HOST: shipyard.lobr.fr
+      VIRTUAL_HOST: "shipyard.{{ domain_name }}"
+      VIRTUAL_PORT: "8080"
     image: shipyard/shipyard:latest
     command: "--debug server --listen :{{ shipyard_port }} -d tcp://swarm:{{ swarm_port }}"
     state: started

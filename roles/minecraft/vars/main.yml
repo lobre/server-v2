@@ -2,6 +2,8 @@
 
 docker_version: 1.18
 
+domain_name: lobr.fr
+
 minecraft_path: /home/docker/minecraft
 
 minecraft_port: 25565

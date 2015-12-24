@@ -24,6 +24,7 @@
       - "{{ media_path }}:/var/www/html/data/admin/files"
     env:
       VIRTUAL_HOST: "cloud.{{ domain_name }}"
+      VIRTUAL_PORT: "80"
     image: owncloud:latest
     state: started
 
@@ -61,6 +62,7 @@
       PGID: "{{ media_pgid }}"
       VERSION: plexpass
       VIRTUAL_HOST: "plex.{{ domain_name }}"
+      VIRTUAL_PORT: "32400"
     image: linuxserver/plex
     state: started
 
@@ -80,6 +82,7 @@
       PUID: "{{ media_puid }}"
       PGID: "{{ media_pgid }}"
       VIRTUAL_HOST: "couchpotato.{{ domain_name }}"
+      VIRTUAL_PORT: "5050"
     image: linuxserver/couchpotato
     state: started
 
@@ -99,6 +102,7 @@
       PUID: "{{ media_puid }}"
       PGID: "{{ media_pgid }}"
       VIRTUAL_HOST: "sonarr.{{ domain_name }}"
+      VIRTUAL_PORT: "8989"
     image: linuxserver/sonarr
     state: started
 
@@ -118,6 +122,7 @@
       PUID: "{{ media_puid }}"
       PGID: "{{ media_pgid }}"
       VIRTUAL_HOST: "sickrage.{{ domain_name }}"
+      VIRTUAL_PORT: "8181"
     image: linuxserver/sickrage
     state: started
 
@@ -137,5 +142,6 @@
       PUID: "{{ media_puid }}"
       PGID: "{{ media_pgid }}"
       VIRTUAL_HOST: "headphones.{{ domain_name }}"
+      VIRTUAL_PORT: "8181"
     image: linuxserver/headphones
     state: started
