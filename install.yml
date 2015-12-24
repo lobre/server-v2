@@ -4,6 +4,28 @@
   hosts: host
   remote_user: docker
 
+  vars:
+    # General
+    domain_name: lobr.fr
+
+    # Proxy
+    certificate_path: /home/docker/certs
+    certificate_email: loric.brevet@gmail.com
+    certificate_organization: lobr
+    certificate_country_code: FR
+    certificate_state: France
+    certificate_locality: Lyon
+    proxy_default_host: lobr.fr
+
+    # Home
+    home_path: /home/docker/home
+
+    # Media
+    media_path: /home/docker/media
+
+    # Minecraft
+    minecraft_path: /home/docker/minecraft
+
   roles:
     - role: proxy
     - role: home

@@ -7,9 +7,9 @@
     path="{{ certificate_path }}"
 
 - name: Generate self signed SSL certificate
-  command: "openssl req -new -nodes -x509 -subj '/C={{ certificate_country_code }}/ST={{ certificate_state }}/L={{ certificate_locality }}/O={{ certificate_organization }}/CN=*.{{ certificate_domain }}/emailAddress={{ certificate_email }}/subjectAltName=DNS.1={{ certificate_domain }}' -days 3650 -keyout {{ certificate_path }}/{{ certificate_domain }}.key -out {{ certificate_path }}/{{ certificate_domain }}.crt -extensions v3_ca"
+  command: "openssl req -new -nodes -x509 -subj '/C={{ certificate_country_code }}/ST={{ certificate_state }}/L={{ certificate_locality }}/O={{ certificate_organization }}/CN=*.{{ domain_name }}/emailAddress={{ certificate_email }}/subjectAltName=DNS.1={{ domain_name }}' -days 3650 -keyout {{ certificate_path }}/{{ domain_name }}.key -out {{ certificate_path }}/{{ domain_name }}.crt -extensions v3_ca"
   args:
-    creates: "{{ certificate_path }}/{{ certificate_domain }}.crt"
+    creates: "{{ certificate_path }}/{{ domain_name }}.crt"
 
 - name: Install Nginx proxy
   docker:
@@ -25,6 +25,6 @@
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - "{{ certificate_path }}:/etc/nginx/certs"
     env:
-      DEFAULT_HOST: "{{ default_host }}"
+      DEFAULT_HOST: "{{ proxy_default_host }}"
     image: jwilder/nginx-proxy
     state: started

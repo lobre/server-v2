@@ -6,10 +6,10 @@
     recurse=yes
     path="{{ item }}"
   with_items:
-    - "{{ library_path }}/Downloads"
-    - "{{ library_path }}/Series"
-    - "{{ library_path }}/Movies"
-    - "{{ library_path }}/Music"
+    - "{{ media_path }}/Downloads"
+    - "{{ media_path }}/Series"
+    - "{{ media_path }}/Movies"
+    - "{{ media_path }}/Music"
 
 - name: Install Owncloud
   docker:
@@ -21,9 +21,9 @@
     ports:
       - "{{ owncloud_port }}:80"
     volumes:
-      - "{{ library_path }}:/var/www/html/data/admin/files"
+      - "{{ media_path }}:/var/www/html/data/admin/files"
     env:
-      VIRTUAL_HOST: cloud.lobr.fr
+      VIRTUAL_HOST: "cloud.{{ domain_name }}"
     image: owncloud:latest
     state: started
 
@@ -37,11 +37,11 @@
       - "{{ deluge_client_port }}:8112"
       - "{{ deluge_host_port }}:58846"
     volumes:
-      - "{{ library_path }}/Downloads:/downloads"
+      - "{{ media_path }}/Downloads:/downloads"
     env:
-      PUID: "{{ puid }}"
-      PGID: "{{ pgid }}"
-      VIRTUAL_HOST: torrent.lobr.fr
+      PUID: "{{ media_puid }}"
+      PGID: "{{ media_pgid }}"
+      VIRTUAL_HOST: "torrent.{{ domain_name }}"
       VIRTUAL_PORT: "8112"
     image: linuxserver/deluge
     state: started
@@ -55,12 +55,12 @@
     ports:
       - "{{ plex_port }}:32400"
     volumes:
-      - "{{ library_path }}:/data"
+      - "{{ media_path }}:/data"
     env:
-      PUID: "{{ puid }}"
-      PGID: "{{ pgid }}"
+      PUID: "{{ media_puid }}"
+      PGID: "{{ media_pgid }}"
       VERSION: plexpass
-      VIRTUAL_HOST: plex.lobr.fr
+      VIRTUAL_HOST: "plex.{{ domain_name }}"
     image: linuxserver/plex
     state: started
 
@@ -73,13 +73,13 @@
     ports:
       - "{{ couchpotato_port }}:5050"
     volumes:
-      - "{{ library_path }}/Downloads:/downloads"
-      - "{{ library_path }}/Movies:/movies"
+      - "{{ media_path }}/Downloads:/downloads"
+      - "{{ media_path }}/Movies:/movies"
       - "/etc/localtime:/etc/localtime:ro"
     env:
-      PUID: "{{ puid }}"
-      PGID: "{{ pgid }}"
-      VIRTUAL_HOST: couchpotato.lobr.fr
+      PUID: "{{ media_puid }}"
+      PGID: "{{ media_pgid }}"
+      VIRTUAL_HOST: "couchpotato.{{ domain_name }}"
     image: linuxserver/couchpotato
     state: started
 
@@ -92,14 +92,33 @@
     ports:
       - "{{ sonarr_port }}:8989"
     volumes:
-      - "{{ library_path }}/Downloads:/downloads"
-      - "{{ library_path }}/Series:/tv"
+      - "{{ media_path }}/Downloads:/downloads"
+      - "{{ media_path }}/Series:/tv"
       - "/dev/rtc:/dev/rtc:ro"
     env:
-      PUID: "{{ puid }}"
-      PGID: "{{ pgid }}"
-      VIRTUAL_HOST: sonarr.lobr.fr
+      PUID: "{{ media_puid }}"
+      PGID: "{{ media_pgid }}"
+      VIRTUAL_HOST: "sonarr.{{ domain_name }}"
     image: linuxserver/sonarr
+    state: started
+
+- name: Install Sickrage
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: bridge
+    name: sickrage
+    restart_policy: always
+    ports:
+      - "{{ sickrage_port }}:8181"
+    volumes:
+      - "{{ media_path }}/Downloads:/downloads"
+      - "{{ media_path }}/Series:/tv"
+      - "/etc/localtime:/etc/localtime:ro"
+    env:
+      PUID: "{{ media_puid }}"
+      PGID: "{{ media_pgid }}"
+      VIRTUAL_HOST: "sickrage.{{ domain_name }}"
+    image: linuxserver/sickrage
     state: started
 
 - name: Install Headphones
@@ -111,12 +130,12 @@
     ports:
       - "{{ headphones_port }}:8181"
     volumes:
-      - "{{ library_path }}/Downloads:/downloads"
-      - "{{ library_path }}/Music:/music"
+      - "{{ media_path }}/Downloads:/downloads"
+      - "{{ media_path }}/Music:/music"
       - "/etc/localtime:/etc/localtime:ro"
     env:
-      PUID: "{{ puid }}"
-      PGID: "{{ pgid }}"
-      VIRTUAL_HOST: headphones.lobr.fr
+      PUID: "{{ media_puid }}"
+      PGID: "{{ media_pgid }}"
+      VIRTUAL_HOST: "headphones.{{ domain_name }}"
     image: linuxserver/headphones
     state: started

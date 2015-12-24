@@ -2,10 +2,12 @@
 
 docker_version: 1.18
 
-library_path: /home/docker/media
+domain_name: lobr.fr
 
-puid: 33
-pgid: 33
+media_path: /home/docker/media
+
+media_puid: 33
+media_pgid: 33
 
 owncloud_port: 8085
 deluge_client_port: 8112
@@ -14,3 +16,4 @@ plex_port: 32400
 couchpotato_port: 5050
 sonarr_port: 8989
 headphones_port: 8181
+sickrage_port: 8182

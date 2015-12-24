@@ -4,5 +4,10 @@
   hosts: host
   remote_user: root
 
+  vars:
+    user_name: docker
+    user_group: docker
+    user_password: docker
+
   roles:
     - role: prepare
