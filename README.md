@@ -52,6 +52,16 @@ Add a user in the daemon file (`/config/auth`) and restart the container.
 
 When first connected to Plex server, set the manual port to `32400` to allow remote connections.
 
+### Koel
+
+Launch this command to initialize project.
+
+    docker exec koel su nginx -c "cd /DATA/htdocs && php artisan init"
+
+Then in the application, you have to add your library path and scan.
+
+    /DATA/music
+
 ### Couchpotato
 
 Add download client.
