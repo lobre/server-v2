@@ -76,7 +76,7 @@
   docker:
     docker_api_version: "{{ docker_version }}"
     net: bridge
-    name: "{{ prefix }}-controller"
+    name: "{{ prefix }}"
     tty: yes
     detach: yes
     restart_policy: always
