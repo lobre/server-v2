@@ -37,7 +37,7 @@
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - "{{ home_path }}:/etc/docker-gen/templates"
     volumes_from:
-      - home-web
+      - home
     image: jwilder/docker-gen
     command: "-watch -only-exposed /etc/docker-gen/templates/index.tmpl /usr/share/nginx/html/index.html"
     state: started
