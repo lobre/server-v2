@@ -9,4 +9,4 @@ certificate_country_code: FR
 certificate_state: France
 certificate_locality: Lyon
 
-proxy_default_host: lobr.fr
+proxy_default_host: home.lobr.fr
