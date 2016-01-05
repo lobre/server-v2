@@ -15,7 +15,7 @@
   docker:
     docker_api_version: "{{ docker_version }}"
     net: bridge
-    name: home-web
+    name: home
     detach: yes
     restart_policy: always
     volumes:
