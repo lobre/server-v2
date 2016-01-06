@@ -11,22 +11,22 @@
     - "{{ media_path }}/Movies"
     - "{{ media_path }}/Music"
 
-- name: Install Owncloud
-  docker:
-    docker_api_version: "{{ docker_version }}"
-    net: bridge
-    name: owncloud
-    detach: yes
-    restart_policy: always
-    ports:
-      - "{{ owncloud_port }}:80"
-    volumes:
-      - "{{ media_path }}:/var/www/html/data/admin/files"
-    env:
-      VIRTUAL_HOST: "cloud.{{ domain_name }}"
-      VIRTUAL_PORT: "80"
-    image: owncloud:latest
-    state: started
+# - name: Install Owncloud
+#   docker:
+#     docker_api_version: "{{ docker_version }}"
+#     net: bridge
+#     name: owncloud
+#     detach: yes
+#     restart_policy: always
+#     ports:
+#       - "{{ owncloud_port }}:80"
+#     volumes:
+#       - "{{ media_path }}:/var/www/html/data/admin/files"
+#     env:
+#       VIRTUAL_HOST: "cloud.{{ domain_name }}"
+#       VIRTUAL_PORT: "80"
+#     image: owncloud:latest
+#     state: started
 
 - name: Install Pydio
   docker:
@@ -36,7 +36,7 @@
     detach: yes
     restart_policy: always
     volumes:
-      - "{{ media_path }}:/data/personal/admin"
+      - "{{ media_path }}:/data/files"
       - "/etc/localtime:/etc/localtime:ro"
     env:
       PUID: "{{ media_puid }}"
