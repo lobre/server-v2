@@ -28,6 +28,25 @@
     image: owncloud:latest
     state: started
 
+- name: Install Pydio
+  docker:
+    docker_api_version: "{{ docker_version }}"
+    net: bridge
+    name: pydio
+    detach: yes
+    restart_policy: always
+    volumes:
+      - "{{ media_path }}:/data/personal/admin"
+      - "/etc/localtime:/etc/localtime:ro"
+    env:
+      PUID: "{{ media_puid }}"
+      PGID: "{{ media_pgid }}"
+      VIRTUAL_HOST: "pydio.{{ domain_name }}"
+      VIRTUAL_PORT: "443"
+      VIRTUAL_PROTO: "https"
+    image: linuxserver/pydio
+    state: started
+
 - name: Install Deluge
   docker:
     docker_api_version: "{{ docker_version }}"
