@@ -85,42 +85,42 @@
     image: linuxserver/plex
     state: started
 
-- name: Install Koel Database
-  docker:
-    docker_api_version: "{{ docker_version }}"
-    net: bridge
-    name: koel-db
-    restart_policy: always
-    env:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "forge"
-    image: mysql
-    state: started
+# - name: Install Koel Database
+#   docker:
+#     docker_api_version: "{{ docker_version }}"
+#     net: bridge
+#     name: koel-db
+#     restart_policy: always
+#     env:
+#       MYSQL_ROOT_PASSWORD: "root"
+#       MYSQL_DATABASE: "forge"
+#     image: mysql
+#     state: started
 
-- name: Install Koel Front
-  docker:
-    docker_api_version: "{{ docker_version }}"
-    net: bridge
-    name: koel
-    restart_policy: always
-    links:
-      - "koel-db:koel-db"
-    volumes:
-      - "{{ media_path }}/Music:/DATA/music"
-    env:
-      DB_HOST: "koel-db"
-      DB_DATABASE: "forge"
-      DB_USERNAME: "root"
-      DB_PASSWORD: "root"
-      ADMIN_EMAIL: "loric.brevet@gmail.com"
-      ADMIN_NAME: "admin"
-      ADMIN_PASSWORD: "media01"
-      APP_DEBUG: true
-      AP_ENV: production
-      VIRTUAL_HOST: "koel.{{ domain_name }}"
-      VIRTUAL_PORT: "80"
-    image: etopian/docker-koel
-    state: started
+# - name: Install Koel Front
+#   docker:
+#     docker_api_version: "{{ docker_version }}"
+#     net: bridge
+#     name: koel
+#     restart_policy: always
+#     links:
+#       - "koel-db:koel-db"
+#     volumes:
+#       - "{{ media_path }}/Music:/DATA/music"
+#     env:
+#       DB_HOST: "koel-db"
+#       DB_DATABASE: "forge"
+#       DB_USERNAME: "root"
+#       DB_PASSWORD: "root"
+#       ADMIN_EMAIL: "loric.brevet@gmail.com"
+#       ADMIN_NAME: "admin"
+#       ADMIN_PASSWORD: "media01"
+#       APP_DEBUG: true
+#       AP_ENV: production
+#       VIRTUAL_HOST: "koel.{{ domain_name }}"
+#       VIRTUAL_PORT: "80"
+#     image: etopian/docker-koel
+#     state: started
 
 - name: Install Couchpotato
   docker:
@@ -182,22 +182,22 @@
     image: linuxserver/sickrage
     state: started
 
-- name: Install Headphones
-  docker:
-    docker_api_version: "{{ docker_version }}"
-    net: bridge
-    name: headphones
-    restart_policy: always
-    ports:
-      - "{{ headphones_port }}:8181"
-    volumes:
-      - "{{ media_path }}/Downloads:/downloads"
-      - "{{ media_path }}/Music:/music"
-      - "/etc/localtime:/etc/localtime:ro"
-    env:
-      PUID: "{{ media_puid }}"
-      PGID: "{{ media_pgid }}"
-      VIRTUAL_HOST: "headphones.{{ domain_name }}"
-      VIRTUAL_PORT: "8181"
-    image: linuxserver/headphones
-    state: started
+# - name: Install Headphones
+#   docker:
+#     docker_api_version: "{{ docker_version }}"
+#     net: bridge
+#     name: headphones
+#     restart_policy: always
+#     ports:
+#       - "{{ headphones_port }}:8181"
+#     volumes:
+#       - "{{ media_path }}/Downloads:/downloads"
+#       - "{{ media_path }}/Music:/music"
+#       - "/etc/localtime:/etc/localtime:ro"
+#     env:
+#       PUID: "{{ media_puid }}"
+#       PGID: "{{ media_pgid }}"
+#       VIRTUAL_HOST: "headphones.{{ domain_name }}"
+#       VIRTUAL_PORT: "8181"
+#     image: linuxserver/headphones
+#     state: started
